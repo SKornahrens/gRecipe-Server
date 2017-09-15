@@ -12,6 +12,9 @@ const recipes = require('./api/recipes')
 const reviews = require('./api/reviews')
 const ingredients = require('./api/ingredients')
 const recipesteps = require('./api/recipesteps')
+const ingredientsrecipes = require('./api/ingredientsrecipes')
+const recipereviews = require('./api/recipereviews')
+const reviewusers = require('./api/reviewusers')
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -23,7 +26,11 @@ app.use(cookieParser());
 app.use('/api/siteusers', siteusers);
 app.use('/api/recipes', recipes);
 app.use('/api/reviews', reviews);
+app.use('/api/ingredients', ingredients);
 app.use('/api/recipesteps', recipesteps);
+app.use('/api/ingredientsrecipes', ingredientsrecipes);
+app.use('/api/recipereviews', recipereviews);
+app.use('/api/reviewusers', reviewusers);
 
 
 // catch 404 and forward to error handler

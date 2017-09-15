@@ -9,9 +9,10 @@ function isValidID(req, res, next ) {
 }
 
 function validRecipe(recipe) {
+  const hasUser = typeof recipe.user_id == 'number';
   const hasName = typeof recipe.name == 'string' && recipe.name.trim() != '';
   const hasDescription = typeof recipe.description == 'string' && recipe.description.trim() != '';
-  return hasName && hasDescription;
+  return hasUser && hasName && hasDescription;
 }
 
 router.get('/', (req, res) => {
@@ -38,7 +39,7 @@ router.post('/', (req, res, next) => {
       res.json(recipe[0])
     })
   } else {
-    next(new Error('Invalid recipe'));
+    next(new Error('Invalid recipe post attempt'));
   }
 })
 

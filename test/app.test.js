@@ -57,16 +57,16 @@ describe('test CRUD_gRecipe- ', () => {
   });
 
   it('Updates a record', (done) => {
-    fixtures.siteuseradd.first_name = "Wheely"
+    fixtures.siteuserachange.user_id = 1
     request(app)
-    .put('/api/siteusers/2')
-    .send(fixtures.siteuseradd)
+    .put('/api/siteusers/1')
+    .send(fixtures.siteuserachange)
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
     .expect(200)
     .then((response) => {
       expect(response.body).to.be.a('object');
-      expect(response.body).to.deep.equal(fixtures.siteuseradd);
+      expect(response.body).to.deep.equal(fixtures.siteuserachange);
       done();
     })
   });
@@ -74,7 +74,6 @@ describe('test CRUD_gRecipe- ', () => {
   it('Deletes a record', (done) => {
     request(app)
     .delete('/api/siteusers/2')
-    .send(fixtures.siteuseradd)
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
     .expect(200)

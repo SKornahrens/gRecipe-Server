@@ -1,16 +1,17 @@
 const express = require('express');
 
 const router = express.Router();
-const queries = require('../db/review_queries')
+const queries = require('../db/reviewuser_queries')
 
 function isValidID(req, res, next ) {
   if(!isNaN(req.params.id)) return next();
-  next(new Error('Invalid review'));
+  next(new Error('Invalid review-user'));
 }
 
-function validReview(review) {
-  const hasContent = typeof review.content == 'string' && review.content.trim() != '';
-  return hasContent;
+function validReviewUser(review) {
+  const hasUserID = typeof review.user_id == 'number';
+  const hasReviewID = typeof review.review_id == 'number';
+  return hasUserID && hasReviewID;
 }
 
 router.get('/', (req, res) => {
@@ -22,7 +23,7 @@ router.get('/', (req, res) => {
 router.get('/:id', isValidID, (req, res, next) => {
     queries.getOne(req.params.id).then(review => {
       if(review) {
-        res.json(review);
+        res.json(review[0]);
       }
       else {
         res.status(404);
@@ -32,7 +33,7 @@ router.get('/:id', isValidID, (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  if(validReview(req.body)) {
+  if(validReviewUser(req.body)) {
     queries.create(req.body).then(review => {
       res.json(review[0])
     })
@@ -42,7 +43,7 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:id', isValidID, (req, res, next) => {
-  if(validReview(req.body)) {
+  if(validReviewUser(req.body)) {
     queries.update(req.params.id, req.body).then(reviewDetails => {
       res.json(reviewDetails[0])
     })

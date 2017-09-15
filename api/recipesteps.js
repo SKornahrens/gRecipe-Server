@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const queries = require('../db/recipestep_queries')
+const queries = require('../db/recipesteps_queries')
 
 function isValidID(req, res, next ) {
   if(!isNaN(req.params.id)) return next();
@@ -9,9 +9,10 @@ function isValidID(req, res, next ) {
 }
 
 function validRecipestep(recipestep) {
-  const hasID = typeof recipestep.recipestep_id == 'integer' && recipestep.recipestep_id.trim() != '';
-  const hasContent = typeof recipestep.content == 'string' && recipestep.content.trim() != '';
-  return hasID && hasContent;
+  const hasRecipeId = typeof recipestep.recipe_id == 'number';
+  const hasStepNum = typeof recipestep.step_num == 'number';
+  const hasStepDirection = typeof recipestep.step_direction == 'string' && recipestep.step_direction.trim() != '';
+  return hasRecipeId && hasStepNum && hasStepDirection;
 }
 
 router.get('/', (req, res) => {

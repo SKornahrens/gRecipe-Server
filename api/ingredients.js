@@ -9,9 +9,8 @@ function isValidID(req, res, next ) {
 }
 
 function validIngredient(ingredient) {
-  const hasID = typeof ingredient.ingredient_id == 'integer' && ingredient.ingredient_id.trim() != '';
   const hasName = typeof ingredient.name == 'string' && ingredient.name.trim() != '';
-  return hasID && hasName;
+  return hasName;
 }
 
 router.get('/', (req, res) => {
